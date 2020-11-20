@@ -12,7 +12,7 @@ Displays a small Dashboard widget to remind logged-in Admin users of their serve
     /** Noindex Manager Functions */
     define('NOINDEX_MANAGER', true); // default = true
     define('NOINDEX_TAGS', true); // default = true
-    define('NOINDEX_CATEGORIES', false); // default = false
+    define('NOINDEX_CATEGORIES', true); // default = true
     define('NOINDEX_AUTHORS', true); // default = true
     define('NOINDEX_PAGES', '1,2,3'); // default = NULL
     define('NOINDEX_POSTS', '1,2,3'); // default = NULL
