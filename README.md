@@ -26,3 +26,7 @@ Any of our WordPress plugins may also be loaded as "Must-Use" plugins (meaning t
 ### Support Issues
 
 Please do not submit Pull Requests. Instead, kindly create a new Issue with relevant information if you are an experienced developer, otherwise you may become a [**LittleBizzy.com Member**](https://www.littlebizzy.com/members) if your company requires official support.
+
+Ref
+* https://growthhackers.com/questions/should-we-index-or-noindex-wordpress-category-tags-for-seo
+* https://www.shoutmeloud.com/how-to-keep-wordpress-categories-and-tags-noindex.html
