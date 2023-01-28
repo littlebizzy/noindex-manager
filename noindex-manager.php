@@ -26,17 +26,17 @@ add_filter(
 
 // noindex bbpress thin content
 if ( !function_exists( 'noindex_bbpress_thin_content' ) ):
-function topic_add_noindex() {
-	if (bbp_is_single_user()) { // bbpress user profiles
+function noindex_bbpress_thin_content() {
+	if ( bbp_is_single_user() ) { // bbpress user profiles
     	wp_no_robots();
   	}	
 	if ( bbp_is_single_topic() && bbp_get_topic_reply_count()<=3) { // topics with few replies
     	wp_no_robots();
 	}
-	if (bbp_is_single_view()) { // view links
+	if ( bbp_is_single_view() ) { // view links
     	wp_no_robots();
 	}	
-	if (bbp_is_single_reply()) { // reply links
+	if ( bbp_is_single_reply() ) { // reply links
     	wp_no_robots();
 	}	
 }
