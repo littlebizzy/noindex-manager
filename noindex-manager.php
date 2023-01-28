@@ -13,6 +13,17 @@ Primary Branch: main
 Prefix: NIDMNG
 */
 
+// disable wordpress.org updates
+add_filter(
+	'gu_override_dot_org',
+	function ( $overrides ) {
+		return array_merge(
+			$overrides,
+			array( 'noindex-manager/noindex-manager.php' )
+		);
+	}
+);
+
 // noindex junk bbpress pages
 if ( !function_exists( 'topic_add_noindex' ) ):
 function topic_add_noindex() {
