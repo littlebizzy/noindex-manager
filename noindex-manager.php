@@ -24,8 +24,8 @@ add_filter(
 	}
 );
 
-// noindex junk bbpress pages
-if ( !function_exists( 'noindex_bbpress_thin_pages' ) ):
+// noindex bbpress thin content
+if ( !function_exists( 'noindex_bbpress_thin_content' ) ):
 function topic_add_noindex() {
 	if (bbp_is_single_user()) { // bbpress user profiles
     	wp_no_robots();
@@ -41,6 +41,6 @@ function topic_add_noindex() {
 	}	
 }
 endif;
-add_action( 'wp_head', 'noindex_bbpress_thin_pages' );
+add_action( 'wp_head', 'noindex_bbpress_thin_content' );
 
 // https://bbpress.org/forums/topic/add-noindex-to-some-forum-pages/
