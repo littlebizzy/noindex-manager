@@ -1,4 +1,17 @@
 <?php 
+/*
+Plugin Name:  Noindex Manager
+Plugin URI: https://www.littlebizzy.com/plugins/noindex-manager
+Description: Noindex junk WordPress content
+Version: 1.0.0
+Author: LittleBizzy
+Author URI: https://www.littlebizzy.com
+License: GPLv3
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
+GitHub Plugin URI: littlebizzy/noindex-manager
+Primary Branch: main
+Prefix: NIDMNG
+*/
 
 // noindex junk bbpress pages
 if ( !function_exists( 'topic_add_noindex' ) ):
