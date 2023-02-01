@@ -1,6 +1,6 @@
 # Noindex Manager
 
-Noindex junk WordPress content
+Noindex thin WordPress content
 
 ## Changelog
 
