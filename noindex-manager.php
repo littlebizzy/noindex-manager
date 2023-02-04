@@ -3,7 +3,7 @@
 Plugin Name:  Noindex Manager
 Plugin URI: https://www.littlebizzy.com/plugins/noindex-manager
 Description: Noindex thin WordPress content
-Version: 1.1.0
+Version: 1.2.0
 Author: LittleBizzy
 Author URI: https://www.littlebizzy.com
 License: GPLv3
@@ -23,6 +23,18 @@ add_filter(
 		);
 	}
 );
+
+
+// noindex woocommerce thin content
+if ( !function_exists( 'noindex_woocommerce_thin_content' ) ):
+function noindex_woocommerce_thin_content() {
+	if ( function_exists( 'is_product_taxonomy' ) && is_product_taxonomy() ) { // woocommerce product attribute archives
+    	wp_no_robots();
+  	}
+}
+endif;
+add_action( 'wp_head', 'noindex_woocommerce_thin_content' );
+
 
 // noindex bbpress thin content
 if ( !function_exists( 'noindex_bbpress_thin_content' ) ):
@@ -47,3 +59,4 @@ add_action( 'wp_head', 'noindex_bbpress_thin_content' );
 // https://bbpress.org/forums/topic/add-noindex-to-some-forum-pages/
 // https://wordpress.stackexchange.com/questions/333424/check-if-page-is-a-woocommerce-attribute
 // https://stackoverflow.com/questions/72013417/check-the-woocommerce-product-attribute-on-archive-page-and-do-something
+// https://wordpress.org/support/topic/taxonomy_is_product_attribute/
