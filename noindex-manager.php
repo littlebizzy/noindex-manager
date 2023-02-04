@@ -2,7 +2,7 @@
 /*
 Plugin Name:  Noindex Manager
 Plugin URI: https://www.littlebizzy.com/plugins/noindex-manager
-Description: Noindex junk WordPress content
+Description: Noindex thin WordPress content
 Version: 1.1.0
 Author: LittleBizzy
 Author URI: https://www.littlebizzy.com
