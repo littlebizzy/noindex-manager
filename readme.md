@@ -4,6 +4,9 @@ Noindex thin WordPress content
 
 ## Changelog
 
+### 1.2.0
+- noindex WooCommerce product attribute archives
+
 ### 1.1.0
 - added if statements for bbPress to avoid fatal errors
 
