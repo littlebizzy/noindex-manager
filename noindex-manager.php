@@ -3,7 +3,7 @@
 Plugin Name:  Noindex Manager
 Plugin URI: https://www.littlebizzy.com/plugins/noindex-manager
 Description: Noindex thin WordPress content
-Version: 1.3.0
+Version: 1.3.1
 Author: LittleBizzy
 Author URI: https://www.littlebizzy.com
 License: GPLv3
@@ -53,7 +53,7 @@ function noindex_bbpress_thin_content() {
 	if ( function_exists( 'bbp_is_single_user' ) && bbp_is_single_user() ) { // bbpress user profiles
     	wp_no_robots();
   	}
-	if ( function_exists( 'bbp_is_single_topic' ) && bbp_is_single_topic() && bbp_get_topic_reply_count()<=3 ) { // topics with few replies
+	if ( function_exists( 'bbp_is_single_topic' ) && bbp_is_single_topic() && bbp_get_topic_reply_count()<=2 ) { // topics with few replies
     	wp_no_robots();
 	}
 	if ( function_exists( 'bbp_is_single_view' ) && bbp_is_single_view() ) { // view links
