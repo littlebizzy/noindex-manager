@@ -4,6 +4,9 @@ Noindex thin WordPress content
 
 ## Changelog
 
+### 1.3.1
+- changed to noindex bbPress topics with less than 2 replies (not 3)
+
 ### 1.3.0
 - noindex WordPress tag archives
 
