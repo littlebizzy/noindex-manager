@@ -3,7 +3,7 @@
 Plugin Name:  Noindex Manager
 Plugin URI: https://www.littlebizzy.com/plugins/noindex-manager
 Description: Noindex thin WordPress content
-Version: 1.3.1
+Version: 1.4.0
 Author: LittleBizzy
 Author URI: https://www.littlebizzy.com
 License: GPLv3
@@ -13,60 +13,57 @@ Primary Branch: main
 Prefix: NIDMNG
 */
 
-// disable wordpress.org updates
-add_filter(
-	'gu_override_dot_org',
-	function ( $overrides ) {
-		return array_merge(
-			$overrides,
-			array( 'noindex-manager/noindex-manager.php' )
-		);
-	}
-);
+// Disable WordPress.org updates for this plugin
+add_filter('gu_override_dot_org', function ($overrides) {
+    $overrides['noindex-manager/noindex-manager.php'] = true;
+    return $overrides;
+});
 
+// Main function to noindex thin content across WordPress, WooCommerce, and bbPress
+function noindex_thin_content() {
+    // Noindex for WordPress tag archives
+    if ( function_exists( 'is_tag' ) && is_tag() ) {
+        wp_no_robots();
+        return;
+    }
 
-// noindex wordpress thin content
-if ( !function_exists( 'noindex_wordpress_thin_content' ) ):
-function noindex_wordpress_thin_content() {
-	if ( function_exists( 'is_tag' ) && is_tag() ) { // wordpress tag archives
-    	wp_no_robots();
-  	}
+    // Noindex for WooCommerce product attribute archives
+    if ( class_exists( 'WooCommerce' ) && is_product_taxonomy() ) {
+        wp_no_robots();
+        return;
+    }
+
+    // Noindex for bbPress content
+    if ( class_exists( 'bbPress' ) ) {
+        
+        // Noindex bbPress user profiles
+        if ( function_exists( 'bbp_is_single_user' ) && bbp_is_single_user() ) {
+            wp_no_robots();
+            return;
+        }
+
+        // Noindex bbPress topics with 2 or fewer replies
+        if ( function_exists( 'bbp_is_single_topic' ) && bbp_is_single_topic() && bbp_get_topic_reply_count() <= 2 ) {
+            wp_no_robots();
+            return;
+        }
+
+        // Noindex bbPress views (e.g., popular views, recent replies)
+        if ( function_exists( 'bbp_is_single_view' ) && bbp_is_single_view() ) {
+            wp_no_robots();
+            return;
+        }
+
+        // Noindex bbPress single replies
+        if ( function_exists( 'bbp_is_single_reply' ) && bbp_is_single_reply() ) {
+            wp_no_robots();
+            return;
+        }
+    }
 }
-endif;
-add_action( 'wp_head', 'noindex_wordpress_thin_content' );
+add_action( 'wp_head', 'noindex_thin_content' );
 
-
-// noindex woocommerce thin content
-if ( !function_exists( 'noindex_woocommerce_thin_content' ) ):
-function noindex_woocommerce_thin_content() {
-	if ( function_exists( 'is_product_taxonomy' ) && is_product_taxonomy() ) { // woocommerce product attribute archives
-    	wp_no_robots();
-  	}
-}
-endif;
-add_action( 'wp_head', 'noindex_woocommerce_thin_content' );
-
-
-// noindex bbpress thin content
-if ( !function_exists( 'noindex_bbpress_thin_content' ) ):
-function noindex_bbpress_thin_content() {
-	if ( function_exists( 'bbp_is_single_user' ) && bbp_is_single_user() ) { // bbpress user profiles
-    	wp_no_robots();
-  	}
-	if ( function_exists( 'bbp_is_single_topic' ) && bbp_is_single_topic() && bbp_get_topic_reply_count()<=2 ) { // topics with few replies
-    	wp_no_robots();
-	}
-	if ( function_exists( 'bbp_is_single_view' ) && bbp_is_single_view() ) { // view links
-    	wp_no_robots();
-	}
-	if ( function_exists( 'bbp_is_single_reply' ) && bbp_is_single_reply() ) { // reply links
-    	wp_no_robots();
-	}
-}
-endif;
-add_action( 'wp_head', 'noindex_bbpress_thin_content' );
-
-
+// Ref: ChatGPT
 // https://bbpress.org/forums/topic/add-noindex-to-some-forum-pages/
 // https://wordpress.stackexchange.com/questions/333424/check-if-page-is-a-woocommerce-attribute
 // https://stackoverflow.com/questions/72013417/check-the-woocommerce-product-attribute-on-archive-page-and-do-something
