@@ -4,6 +4,11 @@ Noindex thin WordPress content
 
 ## Changelog
 
+### 1.4.0
+- better code structure and best practices
+- supports PHP 7.0 to PHP 8.3
+- supports Multisite
+
 ### 1.3.1
 - changed to noindex bbPress topics with less than 2 replies (not 3)
 
