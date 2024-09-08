@@ -15,7 +15,7 @@ Prefix: NIDMNG
 
 // Disable WordPress.org updates for this plugin
 add_filter('gu_override_dot_org', function ($overrides) {
-    $overrides['noindex-manager/noindex-manager.php'] = true;
+    $overrides[] = 'noindex-manager/noindex-manager.php';
     return $overrides;
 });
 
