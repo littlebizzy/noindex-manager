@@ -10,14 +10,18 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 GitHub Plugin URI: littlebizzy/noindex-manager
 Primary Branch: main
-Prefix: NIDMNG
 */
 
-// Disable WordPress.org updates for this plugin
-add_filter('gu_override_dot_org', function ($overrides) {
+// prevent direct access
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+// disable wordpress.org updates for this plugin
+add_filter( 'gu_override_dot_org', function( $overrides ) {
     $overrides[] = 'noindex-manager/noindex-manager.php';
     return $overrides;
-});
+}, 999 );
 
 // Create settings page in WP Admin
 function noindex_manager_add_admin_menu() {
