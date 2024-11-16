@@ -91,6 +91,20 @@ function noindex_manager_settings_init() {
         ]
     );
 
+    // Noindex WordPress Author Pages
+    add_settings_field(
+        'noindex_author',
+        __( 'WordPress Author Pages', 'noindex-manager' ),
+        'noindex_manager_render_select',
+        'noindex_manager_wp',
+        'noindex_manager_wp_section',
+        [
+            'label_for' => 'noindex_author',
+            'default'   => 'noindex',
+            'recommended' => 'noindex'
+        ]
+    );
+
     // WooCommerce options section
     add_settings_section(
         'noindex_manager_woocommerce_section',
@@ -355,7 +369,9 @@ function noindex_manager_sanitize_settings($input) {
     $sanitized_input['noindex_tag'] = in_array( $input['noindex_tag'], ['noindex', 'index'], true ) ? $input['noindex_tag'] : 'noindex';
     $sanitized_input['noindex_date'] = in_array( $input['noindex_date'], ['noindex', 'index'], true ) ? $input['noindex_date'] : 'noindex';
     $sanitized_input['noindex_attachments'] = in_array( $input['noindex_attachments'], ['noindex', 'index'], true ) ? $input['noindex_attachments'] : 'noindex';
+    $sanitized_input['noindex_author'] = in_array( $input['noindex_author'], ['noindex', 'index'], true ) ? $input['noindex_author'] : 'noindex';
 
+    
     $sanitized_input['noindex_woocommerce'] = in_array( $input['noindex_woocommerce'], ['noindex', 'index'], true ) ? $input['noindex_woocommerce'] : 'index'; // Updated to Index
     $sanitized_input['noindex_grouped_products'] = in_array( $input['noindex_grouped_products'], ['noindex', 'index'], true ) ? $input['noindex_grouped_products'] : 'index';
 
@@ -467,6 +483,13 @@ function noindex_thin_content() {
     // Noindex for WordPress attachment pages
     $noindex_attachments = isset( $options['noindex_attachments'] ) ? $options['noindex_attachments'] : 'noindex';
     if ( is_attachment() && $noindex_attachments === 'noindex' ) {
+        wp_no_robots();
+        return;
+    }
+
+    // Noindex for WordPress author pages
+    $noindex_author = isset( $options['noindex_author'] ) ? $options['noindex_author'] : 'noindex';
+    if ( is_author() && $noindex_author === 'noindex' ) {
         wp_no_robots();
         return;
     }
