@@ -395,16 +395,18 @@ function noindex_manager_sanitize_settings( $input ) {
     return $sanitized_input;
 }
 
-// Render select dropdown for each option
-function noindex_manager_render_select($args) {
+// render select dropdown for each option
+function noindex_manager_render_select( $args ) {
     $options = get_option( 'noindex_manager_settings' );
-    $current_value = isset( $options[$args['label_for']] ) ? $options[$args['label_for']] : $args['default'];
+    $current_value = isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : $args['default'];
     ?>
     <select id="<?php echo esc_attr( $args['label_for'] ); ?>" name="noindex_manager_settings[<?php echo esc_attr( $args['label_for'] ); ?>]">
         <option value="noindex" <?php selected( $current_value, 'noindex' ); ?>><?php esc_html_e( 'Noindex', 'noindex-manager' ); ?></option>
         <option value="index" <?php selected( $current_value, 'index' ); ?>><?php esc_html_e( 'Index', 'noindex-manager' ); ?></option>
     </select>
-    <span class="description" style="margin-left: 10px;"><?php printf( esc_html__( 'Recommended: %s', 'noindex-manager' ), esc_html( ucfirst( $args['recommended'] ) ) ); ?></span>
+    <span class="description" style="margin-left: 10px;">
+        <?php printf( esc_html__( 'Recommended: %s', 'noindex-manager' ), esc_html( ucfirst( $args['recommended'] ) ) ); ?>
+    </span>
     <?php
 }
 
@@ -460,39 +462,39 @@ function noindex_manager_options_page() {
     <?php
 }
 
-// Main function to noindex grouped products and other settings
+// main function to noindex grouped products and other settings
 function noindex_thin_content() {
     $options = get_option( 'noindex_manager_settings' );
 
-    // Noindex for WooCommerce grouped products
+    // noindex for woocommerce grouped products
     $noindex_grouped_products = isset( $options['noindex_grouped_products'] ) ? $options['noindex_grouped_products'] : 'index';
     if ( class_exists( 'WooCommerce' ) && is_product() && wc_get_product()->is_type( 'grouped' ) && $noindex_grouped_products === 'noindex' ) {
         wp_no_robots();
         return;
     }
 
-    // Add this snippet for date archives
+    // noindex for wordpress date archives
     $noindex_date = isset( $options['noindex_date'] ) ? $options['noindex_date'] : 'noindex';
     if ( is_date() && $noindex_date === 'noindex' ) {
         wp_no_robots();
         return;
     }
 
-    // Noindex for WordPress attachment pages
+    // noindex for wordpress attachment pages
     $noindex_attachments = isset( $options['noindex_attachments'] ) ? $options['noindex_attachments'] : 'noindex';
     if ( is_attachment() && $noindex_attachments === 'noindex' ) {
         wp_no_robots();
         return;
     }
 
-    // Noindex for WordPress author pages
+    // noindex for wordpress author pages
     $noindex_author = isset( $options['noindex_author'] ) ? $options['noindex_author'] : 'noindex';
     if ( is_author() && $noindex_author === 'noindex' ) {
         wp_no_robots();
         return;
     }
 
-    // (Other noindex logic for other settings)
+    // (additional noindex logic can be added here)
 }
 
 // Hardcode noindex for all search result pages (WordPress, WooCommerce, bbPress)
