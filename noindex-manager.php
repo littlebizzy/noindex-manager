@@ -361,31 +361,29 @@ function noindex_manager_settings_init() {
 }
 add_action( 'admin_init', 'noindex_manager_settings_init' );
 
-// Sanitize settings input
-function noindex_manager_sanitize_settings($input) {
+// sanitize settings input
+function noindex_manager_sanitize_settings( $input ) {
     $sanitized_input = [];
 
-    // Sanitize each setting
+    // sanitize wordpress options
     $sanitized_input['noindex_tag'] = in_array( $input['noindex_tag'], ['noindex', 'index'], true ) ? $input['noindex_tag'] : 'noindex';
     $sanitized_input['noindex_date'] = in_array( $input['noindex_date'], ['noindex', 'index'], true ) ? $input['noindex_date'] : 'noindex';
     $sanitized_input['noindex_attachments'] = in_array( $input['noindex_attachments'], ['noindex', 'index'], true ) ? $input['noindex_attachments'] : 'noindex';
     $sanitized_input['noindex_author'] = in_array( $input['noindex_author'], ['noindex', 'index'], true ) ? $input['noindex_author'] : 'noindex';
 
-    
-    $sanitized_input['noindex_woocommerce'] = in_array( $input['noindex_woocommerce'], ['noindex', 'index'], true ) ? $input['noindex_woocommerce'] : 'index'; // Updated to Index
+    // sanitize woocommerce options
     $sanitized_input['noindex_grouped_products'] = in_array( $input['noindex_grouped_products'], ['noindex', 'index'], true ) ? $input['noindex_grouped_products'] : 'index';
-
-    // Add sanitization for all other options
-    $sanitized_input['noindex_product_categories'] = in_array( $input['noindex_product_categories'], ['noindex', 'index'], true ) ? $input['noindex_product_categories'] : 'index'; // Updated to Index
+    $sanitized_input['noindex_woocommerce'] = in_array( $input['noindex_woocommerce'], ['noindex', 'index'], true ) ? $input['noindex_woocommerce'] : 'index';
+    $sanitized_input['noindex_product_categories'] = in_array( $input['noindex_product_categories'], ['noindex', 'index'], true ) ? $input['noindex_product_categories'] : 'index';
     $sanitized_input['noindex_product_tags'] = in_array( $input['noindex_product_tags'], ['noindex', 'index'], true ) ? $input['noindex_product_tags'] : 'noindex';
     $sanitized_input['noindex_shipping_classes'] = in_array( $input['noindex_shipping_classes'], ['noindex', 'index'], true ) ? $input['noindex_shipping_classes'] : 'noindex';
     $sanitized_input['noindex_checkout'] = in_array( $input['noindex_checkout'], ['noindex', 'index'], true ) ? $input['noindex_checkout'] : 'noindex';
     $sanitized_input['noindex_cart'] = in_array( $input['noindex_cart'], ['noindex', 'index'], true ) ? $input['noindex_cart'] : 'noindex';
     $sanitized_input['noindex_my_account'] = in_array( $input['noindex_my_account'], ['noindex', 'index'], true ) ? $input['noindex_my_account'] : 'noindex';
     $sanitized_input['noindex_order_confirmation'] = in_array( $input['noindex_order_confirmation'], ['noindex', 'index'], true ) ? $input['noindex_order_confirmation'] : 'noindex';
-    $sanitized_input['noindex_out_of_stock'] = in_array( $input['noindex_out_of_stock'], ['noindex', 'index'], true ) ? $input['noindex_out_of_stock'] : 'index'; // Updated to Index
+    $sanitized_input['noindex_out_of_stock'] = in_array( $input['noindex_out_of_stock'], ['noindex', 'index'], true ) ? $input['noindex_out_of_stock'] : 'index';
 
-    // Sanitize bbPress settings
+    // sanitize bbpress options
     $sanitized_input['noindex_bbpress_forums'] = in_array( $input['noindex_bbpress_forums'], ['noindex', 'index'], true ) ? $input['noindex_bbpress_forums'] : 'index';
     $sanitized_input['noindex_bbpress_topic_archive'] = in_array( $input['noindex_bbpress_topic_archive'], ['noindex', 'index'], true ) ? $input['noindex_bbpress_topic_archive'] : 'noindex';
     $sanitized_input['noindex_bbpress_topic_tag_archive'] = in_array( $input['noindex_bbpress_topic_tag_archive'], ['noindex', 'index'], true ) ? $input['noindex_bbpress_topic_tag_archive'] : 'noindex';
