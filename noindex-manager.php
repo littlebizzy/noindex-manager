@@ -58,6 +58,34 @@ function noindex_manager_settings_init() {
             'recommended' => 'noindex'
         ]
     );
+    
+    // Noindex WordPress Date Archives
+    add_settings_field(
+        'noindex_date',
+        __( 'WordPress Date Archives', 'noindex-manager' ),
+        'noindex_manager_render_select',
+        'noindex_manager_wp',
+        'noindex_manager_wp_section',
+        [
+            'label_for' => 'noindex_date',
+            'default'   => 'noindex',
+            'recommended' => 'noindex'
+        ]
+    );
+
+    // Noindex WordPress Attachment Pages
+    add_settings_field(
+        'noindex_attachments',
+        __( 'WordPress Attachment Pages', 'noindex-manager' ),
+        'noindex_manager_render_select',
+        'noindex_manager_wp',
+        'noindex_manager_wp_section',
+        [
+            'label_for' => 'noindex_attachments',
+            'default'   => 'noindex',
+            'recommended' => 'noindex'
+        ]
+    );
 
     // WooCommerce options section
     add_settings_section(
@@ -321,6 +349,9 @@ function noindex_manager_sanitize_settings($input) {
 
     // Sanitize each setting
     $sanitized_input['noindex_tag'] = in_array( $input['noindex_tag'], ['noindex', 'index'], true ) ? $input['noindex_tag'] : 'noindex';
+    $sanitized_input['noindex_date'] = in_array( $input['noindex_date'], ['noindex', 'index'], true ) ? $input['noindex_date'] : 'noindex';
+    $sanitized_input['noindex_attachments'] = in_array( $input['noindex_attachments'], ['noindex', 'index'], true ) ? $input['noindex_attachments'] : 'noindex';
+
     $sanitized_input['noindex_woocommerce'] = in_array( $input['noindex_woocommerce'], ['noindex', 'index'], true ) ? $input['noindex_woocommerce'] : 'index'; // Updated to Index
     $sanitized_input['noindex_grouped_products'] = in_array( $input['noindex_grouped_products'], ['noindex', 'index'], true ) ? $input['noindex_grouped_products'] : 'index';
 
@@ -422,7 +453,21 @@ function noindex_thin_content() {
         return;
     }
 
-    // (Noindex logic for other settings)
+    // Add this snippet for date archives
+    $noindex_date = isset( $options['noindex_date'] ) ? $options['noindex_date'] : 'noindex';
+    if ( is_date() && $noindex_date === 'noindex' ) {
+        wp_no_robots();
+        return;
+    }
+
+    // Noindex for WordPress attachment pages
+    $noindex_attachments = isset( $options['noindex_attachments'] ) ? $options['noindex_attachments'] : 'noindex';
+    if ( is_attachment() && $noindex_attachments === 'noindex' ) {
+        wp_no_robots();
+        return;
+    }
+
+    // (Other noindex logic for other settings)
 }
 
 // Hardcode noindex for all search result pages (WordPress, WooCommerce, bbPress)
